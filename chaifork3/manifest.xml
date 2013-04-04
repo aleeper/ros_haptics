@@ -1,6 +1,6 @@
 <package>
   <description brief="chai3d">
-  This package contains Chai3d 3.0 alpha 4.
+  This package contains a fork of Chai3d 3.0 alpha 4.
   </description>
 
   <author>www.chai3d.org</author>
@@ -23,8 +23,7 @@
             -L${prefix}/internal/lib3ds/lib/release/lin-x86_64/ 
             -ldhd -lpthread -lrt -lusb-1.0 -lGL -lGLU -lglut 
             -lpng -ljpeg -lgif -l3ds
-            -lHD            
-           " 
+" 
     />
     <doxymaker external=""/>
   </export>
