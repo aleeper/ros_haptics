@@ -1,0 +1,3 @@
+add_library(hdPhantom SHARED hdPhantom.cpp)
+include_directories(OPENHAPTICS_INCLUDE_DIR)
+target_link_libraries(hdPhantom OPENHAPTICS_LIBRARIES)
