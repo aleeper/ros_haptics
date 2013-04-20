@@ -1,3 +1,7 @@
+//---------------------------------------------------------------------------
+#if defined(C_ENABLE_WOODEN_DEVICE_SUPPORT)
+//---------------------------------------------------------------------------
+
 #include "woodendevice.h"
 #include "s626comm.h"
 #include <chai3d.h>
@@ -354,3 +358,5 @@ void WoodenDevice::setForce(cVector3d f)
         setMotorTorque(DOF(i),-torque[i]);
 */
 }
+
+#endif

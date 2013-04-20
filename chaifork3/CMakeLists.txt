@@ -165,9 +165,9 @@ elseif(UNIX)
 
     # look for WoodenHaptics library
     #find_package(RemoteHaptics)    #TODO: Find tech required
-    message("Configuring with WoodenHaptics support. Edit CMakeLIsts.txt to disable")
-    list(APPEND CHAI3D_DEPENDS -lcomedi)
-    list(APPEND CHAI3D_DEFINITIONS -DC_ENABLE_WOODEN_DEVICE_SUPPORT)
+    #message("Configuring with WoodenHaptics support. Edit CMakeLIsts.txt to disable")
+    #list(APPEND CHAI3D_DEPENDS -lcomedi)
+    #list(APPEND CHAI3D_DEFINITIONS -DC_ENABLE_WOODEN_DEVICE_SUPPORT)
 
 endif()
 

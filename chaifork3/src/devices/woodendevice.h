@@ -1,3 +1,7 @@
+//---------------------------------------------------------------------------
+#if defined(C_ENABLE_WOODEN_DEVICE_SUPPORT)
+//---------------------------------------------------------------------------
+
 #ifndef WOODENDEVICE_H
 #define WOODENDEVICE_H
 
@@ -64,3 +68,6 @@ protected:
 };
 
 #endif // WOODENDEVICE_H
+
+#endif // C_ENABLE_WOODEN_DEVICE_SUPPORT
+
