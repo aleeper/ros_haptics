@@ -26,7 +26,7 @@ PointCloudObject::PointCloudObject(cWorld *a_world)
     , m_active_radius(0)
     //, tree(new pcl::octree::OctreePointCloud<PointT> (0.005))
     , m_shape(0)
-    , last_tree     ( new pcl::KdTreeFLANN <PointT> ()       )
+    , last_tree     ( new pcl::search::KdTree <PointT> ()       )
     , last_points   ( new pcl::PointCloud  <PointT> ()       )
     , last_normals  ( new pcl::PointCloud  <pcl::Normal> ()  )
 //    , m_cloud_points (new pcl::PointCloud<PointT> ())
@@ -112,7 +112,7 @@ bool PointCloudObject::evaluateCloud(const std::vector< std::vector<int> > &all_
 //      //Do nothing?
 //    }
 
-    std::list< pcl::KdTree<PointT>::Ptr >::iterator          it_tree;
+    std::list< pcl::search::KdTree<PointT>::Ptr >::iterator          it_tree;
     std::list< pcl::PointCloud<PointT>::Ptr >::iterator      it_points;
     std::list< pcl::PointCloud<pcl::Normal>::Ptr >::iterator it_normals;
     int index = 0;
@@ -234,7 +234,7 @@ int PointCloudObject::computeNeighborIndices( PointT position, float radius,
                                               std::vector< std::vector <float> >  &k_sqr_distances)
 {
   int NN = 0;
-  std::list< pcl::KdTree<PointT>::Ptr >::iterator          it_tree;
+  std::list< pcl::search::KdTree<PointT>::Ptr >::iterator          it_tree;
   std::list< pcl::PointCloud<PointT>::Ptr >::iterator      it_points;
   std::list< pcl::PointCloud<pcl::Normal>::Ptr >::iterator it_normals;
   int index = 0;

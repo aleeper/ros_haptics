@@ -24,11 +24,11 @@
 namespace chai_tools
 {
 
-  btVector3 cVectorToTF(const cVector3d &v);
+  tf::Vector3 cVectorToTF(const cVector3d &v);
 
-  btMatrix3x3 cMatrixToTF(const cMatrix3d &rot);
+  tf::Matrix3x3 cMatrixToTF(const cMatrix3d &rot);
 
-  btQuaternion cMatrixToTFQuaternion(const cMatrix3d &m);
+  tf::Quaternion cMatrixToTFQuaternion(const cMatrix3d &m);
 
 } // namespace chai_tools
 

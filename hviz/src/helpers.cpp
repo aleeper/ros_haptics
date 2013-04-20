@@ -18,11 +18,11 @@ tf::Vector3 cVectorToTF(const cVector3d &v)
   return vtf;
 }
 
-btMatrix3x3 cMatrixToTF(const cMatrix3d &rot)
+tf::Matrix3x3 cMatrixToTF(const cMatrix3d &rot)
 {
-  return btMatrix3x3( rot.getCol0().x, rot.getCol1().x, rot.getCol2().x,
-                      rot.getCol0().y, rot.getCol1().y, rot.getCol2().y,
-                      rot.getCol0().z, rot.getCol1().z, rot.getCol2().z);
+  return tf::Matrix3x3( rot.getCol0().x, rot.getCol1().x, rot.getCol2().x,
+                        rot.getCol0().y, rot.getCol1().y, rot.getCol2().y,
+                        rot.getCol0().z, rot.getCol1().z, rot.getCol2().z);
 }
 
 tf::Quaternion cMatrixToTFQuaternion(const cMatrix3d &m)

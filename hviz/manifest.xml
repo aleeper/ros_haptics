@@ -20,7 +20,6 @@
   -->
   
   <depend package="object_manipulator" />
-  <depend package="eigen" /> 
   <depend package="visualization_msgs" />
   <depend package="geometry_msgs" />
   <depend package="stereo_msgs" />

@@ -1,12 +1,15 @@
 <launch>
 
-  <arg name="index" default="1" />
+  <arg name="camera" default="camera" />
 
-  <node pkg="nodelet" type="nodelet" name="pcl_manager_kinect$(arg index)" args="manager" output="screen" />
+  <node pkg="nodelet" type="nodelet" name="pcl_manager_$(arg camera)" args="manager" output="screen" />
   
-  <node pkg="nodelet" type="nodelet" name="kinect$(arg index)_passthrough_nodelet_x" args="load pcl/PassThrough pcl_manager_kinect$(arg index)" output="screen">
-    <remap from="~input"   to="/kinect$(arg index)/rgb/points" />
-    <remap from="~output"  to="/kinect$(arg index)/depth/passthrough_x" />
+  <node pkg="nodelet" type="nodelet" 
+        name="$(arg camera)_passthrough_nodelet_x" 
+        args="load pcl/PassThrough pcl_manager_$(arg camera)" 
+        output="screen">
+    <remap from="~input"   to="/$(arg camera)/depth_registered/points" />
+    <remap from="~output"  to="/$(arg camera)/filtered/passthrough_x" />
     <rosparam>
       filter_field_name: x
       filter_limit_min: -0.3
@@ -16,9 +19,12 @@
     </rosparam>
   </node>
   
-  <node pkg="nodelet" type="nodelet" name="kinect$(arg index)_passthrough_nodelet_z" args="load pcl/PassThrough pcl_manager_kinect$(arg index)" output="screen">
-    <remap from="~input"   to="/kinect$(arg index)/depth/passthrough_x" />
-    <remap from="~output"  to="/kinect$(arg index)/depth/passthrough_xz" />
+  <node pkg="nodelet" type="nodelet" 
+        name="$(arg camera)_passthrough_nodelet_z" 
+        args="load pcl/PassThrough pcl_manager_$(arg camera)" 
+        output="screen">
+    <remap from="~input"   to="/$(arg camera)/filtered/passthrough_x" />
+    <remap from="~output"  to="/$(arg camera)/filtered/passthrough_xz" />
     <rosparam>
       filter_field_name: z
       filter_limit_min: -0.3
@@ -28,9 +34,12 @@
     </rosparam>
   </node>
 
-  <node pkg="nodelet" type="nodelet" name="kinect$(arg index)_passthrough_nodelet_y" args="load pcl/PassThrough pcl_manager_kinect$(arg index)" output="screen">
-    <remap from="~input"   to="/kinect$(arg index)/depth/passthrough_xz" />
-    <remap from="~output"  to="/kinect$(arg index)/depth/passthrough_xyz" />
+  <node pkg="nodelet" type="nodelet" 
+        name="$(arg camera)_passthrough_nodelet_y" 
+        args="load pcl/PassThrough pcl_manager_$(arg camera)" 
+        output="screen">
+    <remap from="~input"   to="/$(arg camera)/filtered/passthrough_xz" />
+    <remap from="~output"  to="/$(arg camera)/filtered/passthrough_xyz" />
     <rosparam>
       filter_field_name: y
       filter_limit_min: -0.3
@@ -40,9 +49,12 @@
     </rosparam>
   </node>
 
-  <node pkg="nodelet" type="nodelet" name="kinect$(arg index)_voxel_nodelet" args="load pcl/VoxelGrid pcl_manager_kinect$(arg index)" output="screen">
-    <remap from="~input"   to="/kinect$(arg index)/depth/passthrough_xyz" />
-    <remap from="~output"  to="/kinect$(arg index)/depth/voxel" />
+  <node pkg="nodelet" type="nodelet" 
+        name="$(arg camera)_voxel_nodelet" 
+        args="load pcl/VoxelGrid pcl_manager_$(arg camera)" 
+        output="screen">
+    <remap from="~input"   to="/$(arg camera)/filtered/passthrough_xyz" />
+    <remap from="~output"  to="/$(arg camera)/filtered/voxel" />
     <rosparam>
       leaf_size: 0.01
       filter_field_name: z
@@ -54,9 +66,9 @@
   </node>
 
 <!--
-  <node pkg="nodelet" type="nodelet" name="kinect$(arg index)_depth_mls" args="load pcl/MovingLeastSquares pcl_manager_kinect$(arg index)" output="screen">
-    <remap from="~input"   to="/kinect$(arg index)/depth/voxel" />
-    <remap from="~output"  to="/kinect$(arg index)/depth/mls" />
+  <node pkg="nodelet" type="nodelet" name="$(arg camera)_depth_mls" args="load pcl/MovingLeastSquares pcl_manager_$(arg camera)" output="screen">
+    <remap from="~input"   to="/$(arg camera)/depth/voxel" />
+    <remap from="~output"  to="/$(arg camera)/depth/mls" />
     <rosparam>
       input_frame: tool_frame
       output_frame: tool_frame
@@ -65,7 +77,7 @@
     </rosparam>
   </node>
 
-  <node pkg="nodelet" type="nodelet" name="kinect_normal_estimation" args="load pcl/NormalEstimation pcl_manager_kinect$(arg index)" output="screen">
+  <node pkg="nodelet" type="nodelet" name="kinect_normal_estimation" args="load pcl/NormalEstimation pcl_manager_kinect$(arg camera)" output="screen">
     <remap from="~input"   to="/kinect/depth/voxel" />
     <remap from="~output"  to="/kinect/depth/normals" />
     <rosparam>
@@ -78,7 +90,7 @@
     </rosparam>
   </node>
 
-  <node pkg="nodelet" type="nodelet" name="kinect_mux" args="load pcl/NodeletMUX pcl_manager_kinect$(arg index)" output="screen">
+  <node pkg="nodelet" type="nodelet" name="kinect_mux" args="load pcl/NodeletMUX pcl_manager_kinect$(arg camera)" output="screen">
     <remap from="~output" to="/kinect/depth/data_mux" />
     <rosparam>
       input_topics: [/kinect/depth/voxel, /kinect/depth/normals]
@@ -86,7 +98,7 @@
     </rosparam>
   </node>
 
-  <node pkg="nodelet" type="nodelet" name="concatenate_fields" args="load pcl/PointCloudConcatenateFieldsSynchronizer pcl_manager_kinect$(arg index)" output="screen">
+  <node pkg="nodelet" type="nodelet" name="concatenate_fields" args="load pcl/PointCloudConcatenateFieldsSynchronizer pcl_manager_kinect$(arg camera)" output="screen">
     <remap from="~input" to="/kinect/depth/data_mux" />
     <remap from="~output" to="/kinect/depth/full" />
  

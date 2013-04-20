@@ -142,11 +142,11 @@ public:
     unsigned int last_cloud_index;
     //unsigned int unused_cloud_index;
     //boost::shared_ptr< pcl::octree::OctreePointCloud<PointT> > tree;
-    std::list< pcl::KdTree<PointT>::Ptr >           trees;
+    std::list< pcl::search::KdTree<PointT>::Ptr >   trees;
     std::list< pcl::PointCloud<PointT>::Ptr >       m_cloud_points;
     std::list< pcl::PointCloud<pcl::Normal>::Ptr >  m_cloud_normals;
 
-    pcl::KdTree<PointT>::Ptr            last_tree;
+    pcl::search::KdTree<PointT>::Ptr    last_tree;
     pcl::PointCloud<PointT>::Ptr        last_points;
     pcl::PointCloud<pcl::Normal>::Ptr   last_normals;
 

@@ -416,47 +416,46 @@ public:
     boost::mutex::scoped_lock lock(mutex_);
     if(config_.publish_cloud)
     {
+//      if(object->last_normals->points.size() == object->last_points->points.size())
+//      {
+//        visualization_msgs::Marker marker;
+//        marker.header = object->last_points->header;
+//        marker.ns = "cloud";
+//        marker.id = 0;
+//        marker.type = visualization_msgs::Marker::SPHERE_LIST; // CUBE, SPHERE, ARROW, CYLINDER
+//        marker.action = false?((int32_t)visualization_msgs::Marker::DELETE):((int32_t)visualization_msgs::Marker::ADD);
+//        marker.lifetime = ros::Duration();
+//        float scale = object->m_active_radius/2;
+//        marker.scale = object_manipulator::msg::createVector3Msg(scale, scale, scale);
+//        marker.color = object_manipulator::msg::createColorMsg(0.5, 0.5, 0.5,1.0);
 
-      if(object->last_normals->points.size() == object->last_points->points.size())
-      {
-        visualization_msgs::Marker marker;
-        marker.header = object->last_points->header;
-        marker.ns = "cloud";
-        marker.id = 0;
-        marker.type = visualization_msgs::Marker::SPHERE_LIST; // CUBE, SPHERE, ARROW, CYLINDER
-        marker.action = false?((int32_t)visualization_msgs::Marker::DELETE):((int32_t)visualization_msgs::Marker::ADD);
-        marker.lifetime = ros::Duration();
-        float scale = object->m_active_radius/2;
-        marker.scale = object_manipulator::msg::createVector3Msg(scale, scale, scale);
-        marker.color = object_manipulator::msg::createColorMsg(0.5, 0.5, 0.5,1.0);
-
-        float angle = time_now.toSec();
-        angle = config_.light_angle * M_PI/180.0;
-        tf::Vector3 light_source = tf::Vector3(0.1*cos(angle), 0.1*sin(angle), 0.3);
-        object_manipulator::shapes::Sphere sphere;
-        sphere.dims = tf::Vector3(0.02, 0.02, 0.02);
-        sphere.frame = tf::Transform(tf::Quaternion(0,0,0,1), light_source);
-        sphere.header.frame_id = "/tool_frame";
-        sphere.header.stamp = marker.header.stamp;
-        object_manipulator::drawSphere(pub_marker_, sphere, "light", 0, ros::Duration(), object_manipulator::msg::createColorMsg(1.0, 1.0, 1.0, 0.5));
-
+//        float angle = time_now.toSec();
+//        angle = config_.light_angle * M_PI/180.0;
+//        tf::Vector3 light_source = tf::Vector3(0.1*cos(angle), 0.1*sin(angle), 0.3);
+//        object_manipulator::shapes::Sphere sphere;
+//        sphere.dims = tf::Vector3(0.02, 0.02, 0.02);
+//        sphere.frame = tf::Transform(tf::Quaternion(0,0,0,1), light_source);
+//        sphere.header.frame_id = "/tool_frame";
+//        sphere.header.stamp = marker.header.stamp;
+//        object_manipulator::drawSphere(pub_marker_, sphere, "light", 0, ros::Duration(), object_manipulator::msg::createColorMsg(1.0, 1.0, 1.0, 0.5));
 
 
-        for(int i = 0; i < object->last_points->points.size(); i++)
-        {
-          const PointT &pt = object->last_points->points[i];
-          const pcl::Normal &nl = object->last_normals->points[i];
-          tf::Vector3 point = tf::Vector3(pt.x, pt.y, pt.z);
-          tf::Vector3 N_vec = tf::Vector3(nl.normal[0], nl.normal[1], nl.normal[2]).normalized();
-          tf::Vector3 L_vec = (light_source - point).normalized();
-          tf::Vector3 color = fabs(L_vec.dot(N_vec))*tf::Vector3(1.0, 1.0, 1.0) + tf::Vector3(0.2, 0.2, 0.2);
-          //tf::Vector3 color = tf::Vector3(pt.x*pt.x, pt.y*pt.y, 1.0);
-          marker.colors.push_back(object_manipulator::msg::createColorMsg(color.x(), color.y(), color.z(), 1.0));;
-          marker.points.push_back(object_manipulator::msg::createPointMsg(pt.x, pt.y, pt.z));
-        }
-        //ROS_INFO("Publishing marker cloud with %d points!", marker.points.size());
-        pub_marker_.publish(marker);
-      }
+
+//        for(int i = 0; i < object->last_points->points.size(); i++)
+//        {
+//          const PointT &pt = object->last_points->points[i];
+//          const pcl::Normal &nl = object->last_normals->points[i];
+//          tf::Vector3 point = tf::Vector3(pt.x, pt.y, pt.z);
+//          tf::Vector3 N_vec = tf::Vector3(nl.normal[0], nl.normal[1], nl.normal[2]).normalized();
+//          tf::Vector3 L_vec = (light_source - point).normalized();
+//          tf::Vector3 color = fabs(L_vec.dot(N_vec))*tf::Vector3(1.0, 1.0, 1.0) + tf::Vector3(0.2, 0.2, 0.2);
+//          //tf::Vector3 color = tf::Vector3(pt.x*pt.x, pt.y*pt.y, 1.0);
+//          marker.colors.push_back(object_manipulator::msg::createColorMsg(color.x(), color.y(), color.z(), 1.0));;
+//          marker.points.push_back(object_manipulator::msg::createPointMsg(pt.x, pt.y, pt.z));
+//        }
+//        //ROS_INFO("Publishing marker cloud with %d points!", marker.points.size());
+//        pub_marker_.publish(marker);
+//      }
       sensor_msgs::PointCloud2 msg;
       pcl::toROSMsg(*(object->last_points), msg);
       msg.header.frame_id = "/tool_frame";

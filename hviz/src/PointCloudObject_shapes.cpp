@@ -184,7 +184,7 @@ bool PointCloudObject::createFromCloud(const pcl::PointCloud<PointT> &cloud)
   //last_points->header = cloud.header;
   ROS_DEBUG_NAMED("haptics", "Building kdtree...");
 
-  last_tree.reset(new pcl::KdTreeFLANN<PointT> ());
+  last_tree.reset(new pcl::search::KdTree<PointT> ());
   last_tree->setInputCloud (last_points);
   //tree->addPointsFromInputCloud();
 
