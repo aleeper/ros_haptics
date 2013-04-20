@@ -1,5 +1,6 @@
 <launch>
 
+  <arg name="rviz" default="true" />
   <arg name="kinect" default="false" />
   <arg name="camera" default="camera" />
   <arg name="debug" default="false"/>
@@ -8,6 +9,8 @@
 
   <include file="$(find hviz)/launch/haptics_frames.launch" />
 
+  <include if="$(arg rviz)" file="$(find hviz)/launch/rviz.launch" />
+  
   <include unless="$(arg kinect)" file="$(find hviz)/launch/bunny.launch" />
   <include if="$(arg kinect)"     file="$(find hviz)/launch/kinect_with_tf.launch" >
     <arg name="camera" value="$(arg camera)" />
@@ -25,5 +28,8 @@
       rendering_mode: 0
     </rosparam>
   </node>
+  
+  <node name="$(anon foo)" pkg="dynamic_reconfigure" type="dynparam"
+    args="set /haptics_node '{'object_select': 2, 'synthetic_noise': 0.004}'"/>
 
 </launch>

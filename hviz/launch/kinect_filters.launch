@@ -2,10 +2,12 @@
 
   <arg name="camera" default="camera" />
 
+  <group ns="$(arg camera)/filters/">
+
   <node pkg="nodelet" type="nodelet" name="pcl_manager_$(arg camera)" args="manager" output="screen" />
   
   <node pkg="nodelet" type="nodelet" 
-        name="$(arg camera)_passthrough_nodelet_x" 
+        name="passthrough_x" 
         args="load pcl/PassThrough pcl_manager_$(arg camera)" 
         output="screen">
     <remap from="~input"   to="/$(arg camera)/depth_registered/points" />
@@ -20,7 +22,7 @@
   </node>
   
   <node pkg="nodelet" type="nodelet" 
-        name="$(arg camera)_passthrough_nodelet_z" 
+        name="passthrough_z" 
         args="load pcl/PassThrough pcl_manager_$(arg camera)" 
         output="screen">
     <remap from="~input"   to="/$(arg camera)/filtered/passthrough_x" />
@@ -35,7 +37,7 @@
   </node>
 
   <node pkg="nodelet" type="nodelet" 
-        name="$(arg camera)_passthrough_nodelet_y" 
+        name="passthrough_y" 
         args="load pcl/PassThrough pcl_manager_$(arg camera)" 
         output="screen">
     <remap from="~input"   to="/$(arg camera)/filtered/passthrough_xz" />
@@ -50,13 +52,13 @@
   </node>
 
   <node pkg="nodelet" type="nodelet" 
-        name="$(arg camera)_voxel_nodelet" 
+        name="voxel" 
         args="load pcl/VoxelGrid pcl_manager_$(arg camera)" 
         output="screen">
     <remap from="~input"   to="/$(arg camera)/filtered/passthrough_xyz" />
     <remap from="~output"  to="/$(arg camera)/filtered/voxel" />
     <rosparam>
-      leaf_size: 0.01
+      leaf_size: 0.002
       filter_field_name: z
       filter_limit_min: -1.0
       filter_limit_max:  1.0
@@ -64,6 +66,8 @@
       output_frame: tool_frame
     </rosparam>
   </node>
+
+  </group>
 
 <!--
   <node pkg="nodelet" type="nodelet" name="$(arg camera)_depth_mls" args="load pcl/MovingLeastSquares pcl_manager_$(arg camera)" output="screen">

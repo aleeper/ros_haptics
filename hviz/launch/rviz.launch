@@ -3,7 +3,7 @@
 <arg name="config_file"
          value="$(find hviz)/config/haptics.rviz"/>
 
-    <node pkg="rviz" name="rviz" type="rviz" args="-d $(arg config_file)" respawn="false" output="screen">
+    <node pkg="rviz" name="rviz" type="rviz" args="-d $(arg config_file)" respawn="false" output="screen" required="true">
 
     </node>
 
