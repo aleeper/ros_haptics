@@ -3,12 +3,10 @@
 
 #include "Sampler.h"
 
-#include "pcl/point_types.h"
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl/search/kdtree.h>
-//#include <pcl/kdtree/kdtree_flann.h>
-//#include <pcl/kdtree/kdtree.h>
+
 #include <boost/thread/recursive_mutex.hpp>
 
 #include <list>

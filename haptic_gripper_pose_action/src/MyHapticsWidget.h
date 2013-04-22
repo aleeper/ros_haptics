@@ -54,7 +54,7 @@ class HapticGhostedGripper{
   ros::NodeHandle nh_, pnh_;
 
   //! Publishers
-  ros::Publisher pub_marker_, pub_marker_array_;
+  ros::Publisher pub_marker_; //, pub_marker_array_;
   ros::Publisher pub_status_;
   ros::Publisher pub_selected_pose_, pub_proxy_pose_, pub_device_pose_;
 

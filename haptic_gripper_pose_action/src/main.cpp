@@ -66,15 +66,16 @@ int main (int argc, char* argv[])
 //  ros::spin();
 
   ROS_INFO("Creating GhostedGripperActionServer...");
-  GhostedGripperActionServer ggas(use_haptics);
+  GripperPoseAction ggas(use_haptics);
   ROS_INFO("...spinning!");
   ros::spin();
 
   // stop the haptic servo thread and destroy it
   hthread->quit();
   hthread->resume();
-  hthread->wait();
-  delete hthread;
+  //hthread->wait();
+  //delete hthread;
+  //sleep(1);
 
   return (0);
 }

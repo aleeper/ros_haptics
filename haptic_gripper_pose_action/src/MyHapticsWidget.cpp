@@ -20,14 +20,14 @@ std::string package_path = "package://haptic_gripper_pose_action/meshes/";
 HapticGhostedGripper::HapticGhostedGripper(bool use_haptics):
     nh_("/"), pnh_("~"),
     active_(false),
-    m_display_frame("/torso_lift_link"),
+    m_display_frame("/base_link"),
     m_clicking(false),
     m_clickExternal(false)
 {
   ROS_INFO("Constructing HapticGhostedGripper!");
   // Marker topics
   pub_marker_ = pnh_.advertise<visualization_msgs::Marker>("/markers", 100);
-  pub_marker_array_ = pnh_.advertise<visualization_msgs::MarkerArray>("/markers_array", 1);
+  //pub_marker_array_ = pnh_.advertise<visualization_msgs::MarkerArray>("/markers_array", 1);
 
   // String status topic
   pub_status_ = pnh_.advertise<std_msgs::String>("servo_status", 10);
@@ -296,7 +296,7 @@ void HapticGhostedGripper::displayCallback()
 
   //ROS_INFO("intensity at (%.2f, %.2f, %.2f): %.2f", HIP_pos[0], HIP_pos[1], HIP_pos[2], intensity);
 
-  if(m_device_info.m_sensedRotation)
+  if(true || m_device_info.m_sensedRotation)
   {
     object_manipulator::shapes::Arrow arrow;
 //    arrow.dims = 10*tf::Vector3(2*proxy_radius, proxy_radius, proxy_radius);

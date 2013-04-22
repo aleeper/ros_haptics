@@ -191,7 +191,7 @@ void PointShellIsosurface::update(HapticDisplay *display)
     {
       ros::Time start_constrain = ros::Time::now();
       constrainedAcceleration(a, alpha, ac, alphac);
-      ROS_INFO("Constraint solver took: %ld us", (ros::Time::now() - start_constrain).toNSec()/1000 );
+      //ROS_INFO("Constraint solver took: %ld us", (ros::Time::now() - start_constrain).toNSec()/1000 );
     }
 
     // limit the constrained acceleration to a maximum displacement for a
@@ -228,7 +228,7 @@ void PointShellIsosurface::update(HapticDisplay *display)
     if (display->buttonState(0))
         processCut(display, display->proxyPosition(), display->toolPosition());
 
-    ROS_INFO("Entire update took: %ld us", (ros::Time::now() - start_update).toNSec()/1000 );
+    //ROS_INFO("Entire update took: %ld us", (ros::Time::now() - start_update).toNSec()/1000 );
 }
 
 // --------------------------------------------------------------------------
@@ -314,8 +314,8 @@ void PointShellIsosurface::constrainedAcceleration(const vector3d &a, const vect
 
     // let's try out the CVXGEN implementation...
 
-    constrainedAccelerationCVX(a, alpha, ac, alphac);
-    return;
+    //constrainedAccelerationCVX(a, alpha, ac, alphac);
+    //return;
     // ***********************************************
 
     // set up typing for projection algorithm

@@ -81,7 +81,7 @@
 
 /** \brief An action for getting a gripper pose using interactive markers.
   */
-class GhostedGripperActionServer
+class GripperPoseAction
 {
 protected:
 
@@ -96,12 +96,14 @@ protected:
   bool object_model_;
   bool use_haptics_;
 
+  std::string point_cloud_topic_;
+
   bool testing_current_grasp_;
 
   PoseState pose_state_;
 
   ros::NodeHandle nh_, pnh_;
-  ros::Subscriber sub_seed_, sub_selected_pose_, sub_proxy_pose_, sub_refresh_flag_;
+  ros::Subscriber sub_seed_, sub_point_seed_, sub_selected_pose_, sub_proxy_pose_, sub_refresh_flag_;
   ros::ServiceClient get_model_mesh_client_;
   ros::Timer spin_timer_;
   interactive_markers::InteractiveMarkerServer server_;
@@ -129,13 +131,14 @@ protected:
 
 public:
 
-  GhostedGripperActionServer(bool use_haptics);
-  ~GhostedGripperActionServer() {};
+  GripperPoseAction(bool use_haptics);
+  ~GripperPoseAction() {};
 
   void updateGripperOpening() {  gripper_opening_ = gripper_angle_ * 0.1714;  }
 
   void updateGripperAngle()   {  gripper_angle_ = gripper_opening_ * 5.834;   }
 
+  void setSeedPoint(const geometry_msgs::PointStampedConstPtr &seed_point);
   void setSeed(const geometry_msgs::PoseStampedConstPtr &seed);
 
   bool transformPoseToCommonFrame(const geometry_msgs::PoseStamped &ps,
@@ -234,7 +237,7 @@ protected:
   //! Initialize the menus for all markers.
   void initMenus();
 
-  bool getModelMesh( int model_id, arm_navigation_msgs::Shape& mesh );
+  bool getModelMesh( int model_id, shape_msgs::Mesh& mesh );
 
   //! Create an interactive marker from a point cloud.
   visualization_msgs::InteractiveMarker makeCloudMarker( const char *name, const geometry_msgs::PoseStamped &stamped,

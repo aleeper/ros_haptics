@@ -1,8 +1,8 @@
 <launch>
  
   <arg name="debug" default="false" />
-  <arg name="stereo" default="false"/>
   <arg name="haptics" default="false"/>
+  <arg name="tf_throttled" default="true"/>
   
   <arg if="$(arg haptics)"      name="mesh" value="coarse_gripper_10cm_flipped"/>
   <arg unless="$(arg haptics)"  name="mesh" value="coarse_gripper_15cm"/>
@@ -13,12 +13,18 @@
   <!-- <include file="$(find haptic_gripper_pose_action)/launch/haptics_frames.launch" /> -->
 
 
-  <node pkg="haptic_gripper_pose_action" type="haptic_ghosted_gripper_node" name="pr2_interactive_gripper_pose_action" launch-prefix="$(arg prefix)" output="screen">
+  <node name="pr2_interactive_gripper_pose_action" 
+        pkg="haptic_gripper_pose_action" 
+        type="haptic_ghosted_gripper_node" 
+        launch-prefix="$(arg prefix)" 
+        output="screen">
+    
+    <remap if="$(arg tf_throttled)" from="tf" to="tf_republished"/> 
+    
     <param name="use_haptics"   value="$(arg haptics)" />
     <param name="mesh_basename" value="$(arg mesh)" />
-     
     <rosparam>
-      absolute_path:  "/u/aleeper/ros/jks-ros-pkg/teleop_and_haptics/haptic_gripper_pose_action/meshes/"
+      absolute_path:  "/home/aleeper/demos/ros_haptics/haptic_gripper_pose_action/meshes/"
       package_path:   "package://haptic_gripper_pose_action/meshes/"
       
       voxel_size: 0.002

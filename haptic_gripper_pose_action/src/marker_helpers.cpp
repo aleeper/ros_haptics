@@ -472,7 +472,7 @@ visualization_msgs::InteractiveMarker makeBaseMarker( const char *name, const ge
   int_marker.controls.push_back(control);
 
   control.markers.clear();
-  tf::quaternionTFToMsg( btQuaternion(btVector3(0,0,1), 135*M_PI/180.0), control.orientation);
+  tf::quaternionTFToMsg( tf::Quaternion(tf::Vector3(0,0,1), 135*M_PI/180.0), control.orientation);
   interactive_markers::makeArrow( int_marker, control, 1.0 );
   control.markers.back().pose.position.x = 0.7;
   control.markers.back().color.r = 1.0;
@@ -482,7 +482,7 @@ visualization_msgs::InteractiveMarker makeBaseMarker( const char *name, const ge
   int_marker.controls.push_back(control);
 
   control.markers.clear();
-  tf::quaternionTFToMsg( btQuaternion(btVector3(0,0,1), -135*M_PI/180.0), control.orientation);
+  tf::quaternionTFToMsg( tf::Quaternion(tf::Vector3(0,0,1), -135*M_PI/180.0), control.orientation);
   interactive_markers::makeArrow( int_marker, control, 1.0 );
   control.markers.back().pose.position.x = 0.7;
   control.markers.back().color.r = 1.0;
