@@ -139,7 +139,7 @@ bool PointCloudObject::updateShape(int shape, bool force_refresh)
     this->createSphericalShell(0.1, 0.1, -CHAI_PI/2.5, CHAI_PI/3, -CHAI_PI, CHAI_PI, m_configPtr->synthetic_noise);
   }
   if(m_shape == hviz::Haptics_BOX){
-    this->createOpenTopBox(0.1, 0.01, m_configPtr->synthetic_noise);
+    this->createOpenTopBox(0.15, 0.01, m_configPtr->synthetic_noise);
   }
   if(m_shape == hviz::Haptics_GRADIENT){
     this->createGradientPlane(0.4, 0.4, 0.01, 1.3, m_configPtr->synthetic_noise);

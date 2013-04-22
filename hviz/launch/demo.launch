@@ -1,0 +1,19 @@
+<launch>
+
+  <arg name="rviz"   default="true" />
+  <arg name="rqt"    default="true" />
+  <arg name="kinect" default="false" />
+  <arg name="camera" default="camera" />
+  <arg name="debug"  default="false"/>
+
+  <include file="$(find hviz)/launch/haptics.launch" >
+    <arg name="kinect" value="$(arg kinect)" />
+    <arg name="camera" default="$(arg camera)" />
+    <arg name="debug" default="$(arg debug)"/>
+  </include>
+  
+  <include if="$(arg rviz)" file="$(find hviz)/launch/rviz.launch" />
+ 
+  <node if="$(arg rqt)" name="rqt_gui" pkg="rqt_gui" type="rqt_gui" />
+
+</launch>

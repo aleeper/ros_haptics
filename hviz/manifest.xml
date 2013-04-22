@@ -23,12 +23,14 @@
   <depend package="visualization_msgs" />
   <depend package="geometry_msgs" />
   <depend package="stereo_msgs" />
+  <depend package="kinect_aux" />
 
   <depend package="pcl" />
   <depend package="pcl_ros" />
   <!-- <depend package="pcl_visualization" /> -->
   <depend package="dynamic_reconfigure" />
   <depend package="profiling" />
+  <depend package="openni_launch" />
 
 
   <!--
