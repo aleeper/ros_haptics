@@ -1,0 +1,2 @@
+# ATTR{product}=="FALCON HAPTIC"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="cb48", MODE="0666"
